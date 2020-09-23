@@ -30,10 +30,18 @@ int result[n][m];
 // connected component
 int COUNT;
 
+// Function to change coordinate system
+void trans_coord(int *x, int *y)
+{
+    int bufX, bufY;
+    bufX = *x; bufY = *y;
+    *x = bufY ; *y = n - 1 - bufX;
+}
 // Function checks if a cell is valid i.e it
 // is inside the grid and equal to the key
 bool is_valid(int x, int y, int key, int input[n][m])
 {
+    //trans_coord(&x, &y);
     if (x < n && y < m && x >= 0 && y >= 0 && input[x][y] != -1) {
         if (visited[x][y] == false && input[x][y] == key)
             return true;
@@ -48,6 +56,8 @@ bool is_valid(int x, int y, int key, int input[n][m])
 // connection with key = input[i][j]
 void BFS(int x, int y, int i, int j, int input[n][m])
 {
+    //trans_coord(&i, &j);
+    //trans_coord(&x, &y);
     // terminating case for BFS
     if (x != y)
         return;
@@ -72,8 +82,10 @@ void BFS(int x, int y, int i, int j, int input[n][m])
 void reset_visited()
 {
     for (int i = 0; i < n; i++)
-        for (int j = 0; j < m; j++)
+        for (int j = 0; j < m; j++) {
+            //trans_coord(&i, &j);
             visited[i][j] = 0;
+        }
 }
 
 // If a larger connected component
@@ -83,6 +95,7 @@ void reset_result(int key, int input[n][m])
 {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
+            //trans_coord(&i, &j);
             if (visited[i][j] && input[i][j] == key)
                 result[i][j] = visited[i][j];
             else
@@ -98,6 +111,7 @@ int* choose_tile()
     bool loop = true;
     for (int i = 0; i < n && loop; i++) {
         for (int j = 0; j < m && loop; j++) {
+            //trans_coord(&i, &j);
             if (result[i][j])
                 cerr << "i = " << *t << " j = " << *(t+1) << endl;
                 *t = i; *(t+1) = j;
@@ -116,6 +130,7 @@ void print_result(int res)
     // prints the largest component
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
+            //trans_coord(&i, &j);
             if (result[i][j]) {
                 cerr << result[i][j] << " ";
                 //cerr << i << " " << j;
@@ -138,6 +153,7 @@ int computeLargestConnectedGrid(int input[n][m])
     
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
+            //trans_coord(&i, &j);
             reset_visited();
             COUNT = 0;
             
@@ -184,7 +200,8 @@ int main()
             for (int j = 0; j < m; j++) {
                 int color; // Color of the tile
                 cin >> color; cin.ignore();
-                input[i][j] = color;
+                //trans_coord(&i, &j);
+                input[j][n-1-i] = color;
                 //cerr << color;
             }
             cerr << endl;
@@ -213,10 +230,11 @@ int main()
         // Write an action using cout. DON'T FORGET THE "<< endl"
         // To debug: cerr << "Debug messages..." << endl;
         int *t = choose_tile();
-        x = t[0] ; y = t[1];
+        x = *t ; y = *(t+1);
+        //trans_coord(&x, &y);
         //cout << t[0] << " " << t[1] << " " << alert << "\\n" << message << endl; // Selected tile "x y [message]".
         cout << x << " " << y; // Selected tile "x y [message]".
-        cout << " x=" << t[0] << " y=" << t[1] << "\\n" << "lrl=" << max_tiles << endl; 
+        cout << " x=" << x << " y=" << y << "\\n" << "lrl=" << max_tiles << endl; 
         delete t;
     }
 }
