@@ -1,4 +1,4 @@
- * Remove connected regions of the same color to obtain the best score.
+ Remove connected regions of the same color to obtain the best score.
  https://www.codingame.com/ide/puzzle/samegame
 
 
