@@ -4,5 +4,5 @@
 
 
 
-* Inspired from CPP program to print the largest connected component in a grid
+Inspired from CPP program to print the largest connected component in a grid
 https://www.geeksforgeeks.org/largest-connected-component-on-a-grid/
