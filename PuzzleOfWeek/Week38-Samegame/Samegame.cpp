@@ -98,7 +98,7 @@ int* choose_tile()
     bool loop = true;
     for (int i = 0; i < n && loop; i++) {
         for (int j = 0; j < m && loop; j++) {
-            if (result[j][i])
+            if (result[i][j])
                 cerr << "i = " << *t << " j = " << *(t+1) << endl;
                 *t = i; *(t+1) = j;
                 loop = false;
