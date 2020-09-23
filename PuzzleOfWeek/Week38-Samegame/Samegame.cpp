@@ -16,8 +16,8 @@ using namespace std;
 // connected component in a grid
 // https://www.geeksforgeeks.org/largest-connected-component-on-a-grid/
 
-const int n = 15;
-const int m = 15;
+const int n = 15; // lignes
+const int m = 15; // colonnes
 
 // stores information about which cell
 // are already visited in a particular BFS
@@ -98,7 +98,7 @@ int* choose_tile()
     bool loop = true;
     for (int i = 0; i < n && loop; i++) {
         for (int j = 0; j < m && loop; j++) {
-            if (result[i][j])
+            if (result[j][i])
                 cerr << "i = " << *t << " j = " << *(t+1) << endl;
                 *t = i; *(t+1) = j;
                 loop = false;
@@ -116,8 +116,9 @@ void print_result(int res)
     // prints the largest component
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            if (result[i][j] == 1) {
+            if (result[i][j]) {
                 cerr << result[i][j] << " ";
+                //cerr << i << " " << j;
             }
             else
                 //cerr << result[i][j] << " ";
