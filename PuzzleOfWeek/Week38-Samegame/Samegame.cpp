@@ -105,7 +105,7 @@ void reset_result(int key, int input[n][m])
 }
 
 // function to choose a tile in the result region
-int* choose_tile()
+int *choose_tile()
 {
     int *t = new int[2];
     bool loop = true;
@@ -131,8 +131,8 @@ void print_result(int res)
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
             //trans_coord(&i, &j);
-            if (result[i][j]) {
-                cerr << result[i][j] << " ";
+            if (result[j][n-1-i]) {
+                cerr << result[j][n-1-i] << " ";
                 //cerr << i << " " << j;
             }
             else
@@ -231,10 +231,10 @@ int main()
         // To debug: cerr << "Debug messages..." << endl;
         int *t = choose_tile();
         x = *t ; y = *(t+1);
-        //trans_coord(&x, &y);
+        trans_coord(&x, &y);
         //cout << t[0] << " " << t[1] << " " << alert << "\\n" << message << endl; // Selected tile "x y [message]".
         cout << x << " " << y; // Selected tile "x y [message]".
         cout << " x=" << x << " y=" << y << "\\n" << "lrl=" << max_tiles << endl; 
-        delete t;
+        delete[] t;
     }
 }
