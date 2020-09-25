@@ -25,6 +25,7 @@ int visited[n][m];
 
 // result stores the final result grid
 int result[n][m];
+int x, y;
 
 // stores the count of cells in the largest
 // connected component
@@ -105,21 +106,23 @@ void reset_result(int key, int input[n][m])
 }
 
 // function to choose a tile in the result region
-int *choose_tile()
-{
-    int *t = new int[2];
-    bool loop = true;
-    for (int i = 0; i < n && loop; i++) {
-        for (int j = 0; j < m && loop; j++) {
-            //trans_coord(&i, &j);
-            if (result[i][j])
-                cerr << "i = " << *t << " j = " << *(t+1) << endl;
-                *t = i; *(t+1) = j;
-                loop = false;
-        }
-    }
-    return t;
-}
+// int *choose_tile()
+// {
+//     int *t = new int[2];
+//     bool loop = true;
+//     for (int i = 0; i < n && loop; i++) {
+//         for (int j = 0; j < m && loop; j++) {
+//             //trans_coord(&i, &j);
+//             if (result[i][j])
+//                 cerr << "i = " << *t << " j = " << *(t+1) << endl;
+//                 *t = i; *(t+1) = j;
+//                 loop = false;
+//         }
+//     }
+//     cerr << "t = " << *t << "; t+1 = " << *(t+1) << endl;
+//     //*t = 3; *(t+1) = 8;
+//     return t;
+// }
 
 // function to print the result 
 void print_result(int res)
@@ -133,6 +136,7 @@ void print_result(int res)
             //trans_coord(&i, &j);
             if (result[j][n-1-i]) {
                 cerr << result[j][n-1-i] << " ";
+                x = j; y = n-1-i;
                 //cerr << i << " " << j;
             }
             else
@@ -191,7 +195,7 @@ int main()
     bool start = true;
     int input[n][m];
     int max_tiles = 0;
-    int x, y;
+    //int x, y;
     // game loop
     while (1) {
         auto begin = chrono::steady_clock::now();
@@ -229,12 +233,12 @@ int main()
 
         // Write an action using cout. DON'T FORGET THE "<< endl"
         // To debug: cerr << "Debug messages..." << endl;
-        int *t = choose_tile();
-        x = *t ; y = *(t+1);
-        trans_coord(&x, &y);
+        // int *t = choose_tile();
+        // x = *t ; y = *(t+1);
+        // trans_coord(&x, &y);
         //cout << t[0] << " " << t[1] << " " << alert << "\\n" << message << endl; // Selected tile "x y [message]".
         cout << x << " " << y; // Selected tile "x y [message]".
         cout << " x=" << x << " y=" << y << "\\n" << "lrl=" << max_tiles << endl; 
-        delete[] t;
+        //delete[] t;
     }
 }
